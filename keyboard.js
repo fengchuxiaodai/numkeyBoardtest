@@ -19,14 +19,15 @@ function KeyBoardView(input) {
     var inputWidth = getElementWidth(input);//触发键盘的控件的宽度
     var keyboard = document.createElement('div');//创建一个div
 
-    var divWidth = inputWidth+'px';
-    var divHeight = inputWidth*1.5+'px';
+    var divWidth = inputWidth + 'px';
+    var divHeight = inputWidth * 1.5 + 'px';
     var fontSize = '15px';
     var left = inputAbsLeft + "px";
     var top = inputAbsTop + "px";
     var afterPointNumCounts = 2;
 
     var onOk;
+    var onClear;
 
     this.setOptions = function (options) {
         divWidth = options.width;
@@ -40,7 +41,6 @@ function KeyBoardView(input) {
     this.show = function () {
         if (document.getElementById(KEYBOARD_DIV_ID)) {
             document.getElementsByTagName('body')[0].removeChild(document.getElementById(KEYBOARD_DIV_ID));
-
         }
 
 
@@ -51,7 +51,7 @@ function KeyBoardView(input) {
         keyboard.style.width = divWidth;
         keyboard.style.height = divHeight;
         keyboard.style.color = fontSize;
-        keyboard.style.marginTop="2px";
+        keyboard.style.marginTop = "2px";
         keyboard.style.backgroundColor = "#756542"
 
 
@@ -86,9 +86,19 @@ function KeyBoardView(input) {
         keyboard.onclick = addEvent;//设置点击处理事件
         document.getElementsByTagName('body')[0].appendChild(keyboard);//显示键盘
     }
-    this.onOK = function (e) {
-        onOk = e;
+    this.onOK = function (eOK) {
+        onOk = eOK;
     }
+    this.onClear = function (eClear) {
+        onClear = eClear;
+    }
+
+    this.close = function () {
+        if (document.getElementById(KEYBOARD_DIV_ID)) {
+            document.getElementsByTagName('body')[0].removeChild(document.getElementById(KEYBOARD_DIV_ID));
+        }
+    }
+
     function addEvent(e) {
         var ev = e || window.event;
         var clickEl = ev.element || ev.target;
@@ -120,6 +130,9 @@ function KeyBoardView(input) {
             if (input.value !== null) {
                 input.value = "";
             }
+            if (onClear!=null) {
+                onClear();
+            }
         } else if (clickEl.tagName.toLocaleLowerCase() === 'div' && value === "确认") {
             document.getElementsByTagName('body')[0].removeChild(keyboard);
             if (input.value.indexOf(".") >= 0) {
@@ -130,7 +143,7 @@ function KeyBoardView(input) {
                     input.value = input.value.substr(0, input.value.lastIndexOf("."));
                 }
             }
-            if (onOk!=null){
+            if (onOk!=null) {
                 onOk(input.value);
             }
         } else if (clickEl.tagName.toLocaleLowerCase() === 'td' && value === "删除") {

@@ -36,6 +36,10 @@
             k.onOK(function (value) {
                 document.getElementById("div1").innerText = value;
             })
+            k.onClear(function () {
+                moneyCount.value = "";
+                k.close();
+            })
             k.show();
         }
     }
