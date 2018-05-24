@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>虚拟键盘</title>
+    <style type="text/css">
+        #aaaaa div:hover {
+            background-color: #0f0;
+            color: #f00;
+        }
+    </style>
+    <script type="text/javascript" src="documentUtils.js"></script>
+    <script type="text/javascript" src="keyboard.js"></script>
+</head>
+<body>
+<input id="money" readonly="readonly" style="margin-left: 150px" onclick="inputMoney()" type="text">
+<div style="width: 600px;">
+    <div id="aaaaa">
+        <div id="div1">确认</div>
+    </div>
+</div>
+<script type="text/javascript">
+    var moneyCount = document.getElementById("money");
+
+    function inputMoney() {
+        if (moneyCount) {
+            var k = new KeyBoardView(moneyCount);
+            var keyBoardOptions = new KeyBoardOptions();
+            keyBoardOptions.width = "300px";
+            keyBoardOptions.height = "500px";
+            keyBoardOptions.top = "100px";
+            keyBoardOptions.left = "200px";
+            keyBoardOptions.fontSize = "#f00";
+            keyBoardOptions.afterPointNumCounts = 5;
+            k.setOptions(keyBoardOptions);
+            k.onOK(function (value) {
+                document.getElementById("div1").innerText = value;
+            })
+            k.show();
+        }
+    }
+
+</script>
+</body>
+</html>
