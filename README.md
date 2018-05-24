@@ -11,10 +11,10 @@
  keyBoardOptions.afterPointNumCounts = 5;//小数位数控制<p/>
  k.setOptions(keyBoardOptions);//设置参数生效
  k.onOK(function (value) {//确认按钮的回调<p/>
-     document.getElementById("div1").innerText = value;
- })
+     document.getElementById("div1").innerText = value;<p/>
+ })<p/>
  k.onClear(function () {//清空按钮的回调<p/>
-     moneyCount.value = "";
-     k.close();
- })
+     moneyCount.value = "";<p/>
+     k.close();<p/>
+ })<p/>
  k.show();//显示键盘<p/>
